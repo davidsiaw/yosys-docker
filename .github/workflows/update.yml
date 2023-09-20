@@ -55,7 +55,6 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
 
     - uses: stefanzweifel/git-auto-commit-action@v4
-      id: auto-commit-action
       with:
         commit_message: automated push for ${{ steps.readcurstamp.outputs.content }}
 
