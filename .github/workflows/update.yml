@@ -1,0 +1,55 @@
+---
+name: update-container
+concurrency:
+  group: default
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Log in to Docker Hub
+      uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+      with:
+        username: davidsiaw
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+      with:
+        images: davidsiaw/yosys-docker
+    - name: Grab latest datestamp
+      run: |
+        sh get-dstamp.sh > curstamp
+        cat curstamp >> stamphistory
+        cat stamphistory | uniq > u
+        mv u stamphistory
+
+    - name: Read datestamp
+      id: readcurstamp
+      uses: jaywcjlove/github-action-read-file@main
+      with:
+        path: curstamp
+
+    - name: Echo package.json
+      run: echo "${{ steps.package.outputs.content }}"
+
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: automated push for ${{ steps.readcurstamp.outputs.content }}
+
+    - name: Build and push Docker image if changes detected
+      if: steps.auto-commit-action.outputs.changes_detected == 'true'
+      uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags:
+        - latest
+        - ${{ steps.readcurstamp.outputs.content }}
+        labels: ${{ steps.meta.outputs.labels }}
