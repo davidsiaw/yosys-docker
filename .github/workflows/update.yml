@@ -31,7 +31,7 @@ jobs:
 
     - name: Read datestamp
       id: readcurstamp
-      uses: jaywcjlove/github-action-read-file@main
+      uses: andstor/file-reader-action@v1
       with:
         path: curstamp
 
