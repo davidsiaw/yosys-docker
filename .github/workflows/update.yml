@@ -41,7 +41,8 @@ jobs:
     - uses: stefanzweifel/git-auto-commit-action@v4
       id: auto-commit-action
       with:
-        commit_message: automated push for ${{ steps.readcurstamp.outputs.content }}
+        push_options: --dry-run
+        commit_message: automated push for ${{ steps.readcurstamp.outputs.contents }}
 
     - name: Build and push Docker image if changes detected
       if: steps.auto-commit-action.outputs.changes_detected == 'true'
@@ -50,5 +51,11 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: davidsiaw/yosys-docker:latest,davidsiaw/yosys-docker:${{ steps.readcurstamp.outputs.content }}
+        tags: davidsiaw/yosys-docker:latest,davidsiaw/yosys-docker:${{ steps.readcurstamp.outputs.contents }}
         labels: ${{ steps.meta.outputs.labels }}
+
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      id: auto-commit-action
+      with:
+        commit_message: automated push for ${{ steps.readcurstamp.outputs.content }}
+
