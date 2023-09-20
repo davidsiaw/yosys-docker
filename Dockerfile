@@ -1,7 +1,29 @@
 # build everything
 FROM ubuntu
 
-RUN apt-get update && apt-get install -y curl wget build-essential git python3-pip  python3.10-venv ca-certificates curl gnupg lsb-release
+RUN apt-get update && \
+    apt-get install -y curl \
+    wget \
+    build-essential \
+    git \
+    python3-pip \
+    python3.10-venv \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release \ 
+    gzip \
+    libftdi1-2 \
+    libftdi1-dev \
+    libhidapi-hidraw0 \
+    libhidapi-dev \
+    libudev-dev \
+    zlib1g-dev \
+    cmake \
+    pkg-config \
+    make \
+    g++ \
+    udev
 
 ADD install.sh /install.sh
 
