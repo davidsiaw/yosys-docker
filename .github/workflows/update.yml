@@ -35,9 +35,6 @@ jobs:
       with:
         path: curstamp
 
-    - name: Echo package.json
-      run: echo "${{ steps.package.outputs.content }}"
-
     - uses: stefanzweifel/git-auto-commit-action@v4
       id: auto-commit-action
       with:
@@ -54,7 +51,7 @@ jobs:
         tags: davidsiaw/yosys-docker:latest,davidsiaw/yosys-docker:${{ steps.readcurstamp.outputs.contents }}
         labels: ${{ steps.meta.outputs.labels }}
 
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: automated push for ${{ steps.readcurstamp.outputs.content }}
-
+    - name: Push confirmation
+      if: steps.auto-commit-action.outputs.changes_detected == 'true'
+      run: |
+        git push
