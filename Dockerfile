@@ -7,7 +7,7 @@ RUN apt-get update && apt-get upgrade && \
     build-essential \
     git \
     python3-pip \
-    python3.10-venv \
+    python3.12-venv \
     ca-certificates \
     curl \
     gnupg \
