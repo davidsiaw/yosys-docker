@@ -1,5 +1,5 @@
 # build everything
-FROM ubuntu
+FROM ubuntu:22.04
 
 RUN apt-get update && apt-get upgrade && \
     apt-get install -y curl \
@@ -7,7 +7,7 @@ RUN apt-get update && apt-get upgrade && \
     build-essential \
     git \
     python3-pip \
-    python3.12-venv \
+    python3.10-venv \
     ca-certificates \
     curl \
     gnupg \
