@@ -1,7 +1,7 @@
 # build everything
 FROM ubuntu
 
-RUN apt-get update && \
+RUN apt-get update && apt-get upgrade && \
     apt-get install -y curl \
     wget \
     build-essential \
