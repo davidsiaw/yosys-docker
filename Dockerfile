@@ -1,7 +1,7 @@
 # build everything
 FROM ubuntu:22.04
 
-RUN apt-get update && apt-get upgrade && \
+RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y curl \
     wget \
     build-essential \
