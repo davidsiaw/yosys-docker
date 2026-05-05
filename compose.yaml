@@ -1,0 +1,17 @@
+services:
+  oss_cad_suite:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: yosys-docker
+    container_name: yosys-dev-env
+    privileged: true
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    stdin_open: true
+    tty: true
+    volumes:
+      - type: bind
+        source: ${PROJECT_DIR:-./src}
+        target: /workspace
+    command: /bin/bash
