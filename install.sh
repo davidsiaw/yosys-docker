@@ -36,5 +36,7 @@ udevadm control --reload-rules && udevadm trigger
 mkdir build
 cd build
 cmake ..
-make install -j4
+make install -j8
+
+pip install mpremote
 
