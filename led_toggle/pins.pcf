@@ -1,0 +1,8 @@
+# 48 MHz clock from the RP2350 (global clock pin)
+set_io clk 35
+
+# On-board GREEN LED (active-low)
+set_io led 39
+
+# On-board user button SW2 (active-low, has external pull-up)
+set_io btn 10
