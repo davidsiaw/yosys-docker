@@ -36,4 +36,8 @@ RUN echo $TARGETOS $TARGETARCH
 RUN bash install.sh
 
 ENV PATH="${PATH}:/opt/oss-cad-suite/bin/"
-ENV DATESTAMP=$DATESTAMP
+ENV DATESTAMP=$DATESTAMP    
+
+WORKDIR /workspace
+
+CMD ["/bin/bash"]
